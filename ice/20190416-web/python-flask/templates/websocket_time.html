@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script type="text/javascript" src="https://cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<script>
+  // 建立socket连接，等待服务器“推送”数据
+  $(document).ready(function() {
+    namespace = '/test';
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+    socket.on('server_response', function(res) {
+      console.log(res)
+      $('h1').text("当前时间是：" + res)
+    });
+  });
+</script>
+  <h1>这里展示数据</h1>
+</body>
+</html>

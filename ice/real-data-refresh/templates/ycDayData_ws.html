@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>实时数据推送</title>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+</head>
+<body>
+  <h2 id = "1"></h2>
+  <h2 id = "2"></h2>
+  <h2 id = "3"></h2>
+  <h2 id = "4"></h2>
+</body>
+
+<script type="text/javascript">
+       var socket = io.connect("http://localhost:5000");
+
+       socket.on('connect', function () {
+           socket.emit('my event', {data: 'I\'m connected!'});
+       });
+
+       socket.on('server_response', function (data){
+           console.log(data)
+           $('h2#1').text("读数据需要时间：" + data[0][0])
+           $('h2#2').text("总计读取数据: " + data[0][1])
+           $('h2#3').text("读取的遥测数据如下：")
+           for (var i=0; i<data[0][1]; i++) {
+               $('h2#4').append(data[1][i].status,"&nbsp;",data[1][i].value,"&nbsp;",data[1][i].timetag + "<br>");
+           }
+       });
+</script>
+</html>

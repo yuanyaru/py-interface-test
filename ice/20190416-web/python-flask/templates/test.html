@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+<script>
+  // 建立socket连接，等待服务器“推送”数据
+  $(document).ready(function() {
+    namespace = '/test';
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+    socket.on('server_response', function(res) {
+      console.log(res)
+      $('h1#1').text("列表的第一个数据："+res[0].status + res[0].value + res[0].timetag)
+      $('h1#2').text("列表的第二个数据："+res[1].status + res[1].value + res[1].timetag)
+    });
+
+  });
+</script>
+  <h1 id = "1"></h1>
+  <h1 id = "2"></h1>
+</body>
+
+</html>

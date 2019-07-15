@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+<script>
+  // 建立socket连接，等待服务器“推送”数据
+  $(document).ready(function() {
+    namespace = '/test';
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+    socket.on('server_response', function(res) {
+      console.log(res)
+      $('h2#2').text("总共读取遥测数据: "+ res[0][0])
+      $('h2#3').text("读取的遥测数据如下：")
+      for (var i=0; i<res[0][0]; i++) {
+          $('h2#4').append(res[1][i].status,"&nbsp;",res[1][i].value,"&nbsp;",res[1][i].timetag + "<br>");
+      } 
+    });
+
+  });
+</script>
+  <h2 id = "2"></h2>
+  <h2 id = "3"></h2>
+  <h2 id = "4"></h2> 
+</body>
+
+</html>
