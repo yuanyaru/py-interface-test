@@ -56,22 +56,24 @@ def scope_read_log():
 
 
 def delete_log():
-    URL_61 = 'http://192.168.100.61:18080/log/1565576089'
-    URL_62 = 'http://192.168.100.62:18080/log/1565576089'
-    URL_63 = 'http://192.168.100.63:18080/log/1565576089'
-    leader_URL = 'http://192.168.100.64:18080/log/1565576089'
+    """
+    URL_61 = 'http://192.168.100.61:18080/log/1565581471'
+    URL_62 = 'http://192.168.100.62:18080/log/1565581471'
+    URL_63 = 'http://192.168.100.63:18080/log/1565581471'
     follow_URL = [URL_61, URL_62, URL_63]
-    # for url in follow_URL:
-    #     response = requests.delete(url)
-    #     print response.text
+    for url in follow_URL:
+        response = requests.delete(url)
+        print response.text
+    """
+    leader_URL = 'http://192.168.100.64:18080/log/1565590430'
     response = requests.delete(leader_URL)
-    print response.text
+    print response.json()
 
 
 if __name__ == '__main__':
     # leader_write_log()
     # follower_write_log()
     # leader_read_log()
-    follower_read_log()
-    # scope_read_log()
+    # follower_read_log()
     # delete_log()
+    scope_read_log()
