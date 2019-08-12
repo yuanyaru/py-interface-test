@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import requests
+from leader import get_time
 
 
 # Leader节点写入（64）
@@ -44,15 +45,16 @@ def follower_read_log():
 
 # 范围查询
 def scope_read_log():
-    read_URL_61 = 'http://192.168.100.61:18080/log/'
-    read_URL_62 = 'http://192.168.100.62:18080/log/'
-    read_URL_63 = 'http://192.168.100.63:18080/log/'
-    read_URL_64 = 'http://192.168.100.64:18080/log/'
-    read_URL = [read_URL_61, read_URL_62, read_URL_63, read_URL_64]
-    data = '{"from": "2019 08 12"}'
-    for url in read_URL:
-        response = requests.put(url, data)
-        print response.json()
+    while True:
+        read_URL_61 = 'http://192.168.100.61:18080/log/'
+        read_URL_62 = 'http://192.168.100.62:18080/log/'
+        read_URL_63 = 'http://192.168.100.63:18080/log/'
+        read_URL_64 = 'http://192.168.100.64:18080/log/'
+        read_URL = [read_URL_61, read_URL_62, read_URL_63, read_URL_64]
+        data = '{"from": "2019 08 12"}'
+        for url in read_URL:
+            response = requests.put(url, data)
+            print str(response.json()) + "-" + get_time()
 
 
 def delete_log():
@@ -65,9 +67,9 @@ def delete_log():
         response = requests.delete(url)
         print response.text
     """
-    leader_URL = 'http://192.168.100.64:18080/log/1565590430'
+    leader_URL = 'http://192.168.100.64:18080/log/1565592116'
     response = requests.delete(leader_URL)
-    print response.json()
+    print str(response.json()) + "-" + get_time()
 
 
 if __name__ == '__main__':
