@@ -1,0 +1,12 @@
+1 配置yum仓库
+
+cd /etc/yum.repos.d
+sudo wget https://zeroc.com/download/Ice/3.7/el7/zeroc-ice3.7.repo
+wget https://zeroc.com/download/rpm/zeroc-ice-el6.repo
+
+2 Install Ice for C++, Python, PHP, and all Ice services.
+
+sudo yum install ice-all-runtime ice-all-devel
+
+4 通过icebox -v查看安装的版本号
+
