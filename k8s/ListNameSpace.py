@@ -2,6 +2,7 @@
 # -*- encoding:utf-8 -*-
 
 from kubernetes import client, config
+# cp $HOME/.kube/config  deamon/config/kubeconfig.yaml
 config.kube_config.load_kube_config(config_file="kubeconfig.yaml")
 
 
