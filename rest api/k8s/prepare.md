@@ -3,17 +3,17 @@
 
 1.抓取Cluster URL地址
 ``` bash
-APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
-echo $APISERVER
+#APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
+#echo $APISERVER
 ```
 2.创建k8s admin-user
 ``` bash
-mkdir -p /kube/role
-cd /kube/role
+#mkdir -p /kube/role
+#cd /kube/role
 ```
 * 在kube-system下创建admin-user
 ``` bash
-vi CreateServiceAccount.yaml
+#vi CreateServiceAccount.yaml
 
 apiVersion: v1
 kind: ServiceAccount
@@ -23,7 +23,7 @@ metadata:
 ```
 * 给admin-user赋予admin权限
 ``` bash
-# vi RoleBinding.yaml
+#vim RoleBinding.yaml
 
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
@@ -39,13 +39,13 @@ subjects:
   namespace: kube-system
 ```
 ``` bash
-kubectl create -f CreateServiceAccount.yaml
-kubectl create -f RoleBinding.yaml
+#kubectl create -f CreateServiceAccount.yaml
+#kubectl create -f RoleBinding.yaml
 ```
 3.获取admin-user token
 ``` bash
-Token=$(kubectl describe secret $(kubectl get secret -n kube-system | grep ^admin-user | awk '{print $1}') -n kube-system | grep -E '^token'| awk '{print $2}')
-echo $Token
+#Token=$(kubectl describe secret $(kubectl get secret -n kube-system | grep ^admin-user | awk '{print $1}') -n kube-system | grep -E '^token'| awk '{print $2}')
+#echo $Token
 ```
 最后将token与APISERVER地址返回内容复制到python client主机上, 供脚本使用.
 
